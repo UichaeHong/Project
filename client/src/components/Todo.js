@@ -3,10 +3,11 @@ import "../styles/Todo.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const Todo = ({ iitem, deleteIItem, updateItem }) => {
-  console.log(iitem); // {done: false, id: 1, title: "저녁먹기"}
+const Todo = ({ iitem, deleteIItem, updateItem, Clear }) => {
+  // console.log(iitem); // {done: false, id: 1, title: "저녁먹기"}
   const [todoItem, setTodoItem] = useState(iitem);
   const [readOnly, setReadOnly] = useState(true);
+  // const [Check, newCheck] = useState("");
 
   // const [isCheckAll, setIsCheckAll] = useState(false);
 
@@ -37,10 +38,6 @@ const Todo = ({ iitem, deleteIItem, updateItem }) => {
       title: e.target.value,
       ...rest,
     });
-
-    // if (checkboxEventHandler ===true) {
-    //   setTodoItem = "lineThrough";
-    // }
   };
 
   // checkbox의 체크 여부에 따라 todoItem state의 done 상태값을 변경
@@ -60,9 +57,9 @@ const Todo = ({ iitem, deleteIItem, updateItem }) => {
     updateItem(updatedItem); // 수정 2 checkbox input에서 check 여부 확인
 
     // 취소선 만들기
-    if (checkboxEventHandler.done === "true") {
-      todoItem.title = "lineThrough";
-    }
+    //   if (checkboxEventHandler.done === "true") {
+    //     todoItem.title = "lineThrough";
+    //   }
   };
 
   // check 취소선 만들기
@@ -75,8 +72,14 @@ const Todo = ({ iitem, deleteIItem, updateItem }) => {
   //   this.saveToDos();
   // };
 
+  const Clears = () => {
+    Clear(todoItem);
+    // console(todoItem);
+  };
+
   return (
-    <div className="Todo">
+    <div className="Todo" onClick={Clears}>
+      {/* <div className="clear"> */}
       <input
         type="checkbox"
         id={`todo${iitem.id}`}
@@ -112,13 +115,8 @@ const Todo = ({ iitem, deleteIItem, updateItem }) => {
       <button onClick={onDeleteButtonClick} className="button2">
         <FontAwesomeIcon icon={faTrashCan} />
       </button>
-      {/* <button onClick={onDeleteButtonClick}><FontAwesomeIcon icon="fa-regular fa-trash-can" /></button> */}
     </div>
   );
 };
 
 export default Todo;
-
-// font-style: italic;
-//   text-decoration: line-through;
-//   color: #868e96;
