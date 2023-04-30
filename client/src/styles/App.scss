@@ -1,0 +1,29 @@
+* {
+  background-color: mediumseagreen;
+}
+
+h1 {
+  background-color: aliceblue;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10%;
+  background-color: aliceblue;
+}
+.App {
+  text-align: center;
+}
+
+div {
+  background-color: aliceblue;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 50px;
+}
+
+.left-todos {
+  padding: 0 24px;
+}

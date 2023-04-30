@@ -1,0 +1,27 @@
+// AddTodo.js에서 사용할 scss
+.AddTodo {
+  align-content: center;
+}
+
+input {
+  margin: 10px;
+  padding: 10px;
+  outline: 1px solid mediumseagreen;
+  border: none;
+  text-align: center;
+  background-color: aliceblue;
+}
+
+button {
+  font-size: larger;
+  background-color: aliceblue;
+  background-color: transparent;
+}
+
+.button {
+  color: aliceblue;
+  border-radius: 6px;
+  padding: 8px;
+  border: none;
+  background-color: mediumseagreen;
+}
