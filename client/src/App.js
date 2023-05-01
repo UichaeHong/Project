@@ -24,7 +24,7 @@ function App() {
       const res = await axios.get(`${api_url}/api/todos`);
 
       // console.log(res);
-      setTodoItems(res.data);
+      setTodoItems(res.data.reverse());
     };
 
     getTodos();
@@ -44,7 +44,7 @@ function App() {
     const res = await axios.post(`${api_url}/api/todo`, newItem);
 
     // console.log(res);
-    setTodoItems([...todoItems, res.data]);
+    setTodoItems([res.data, ...todoItems]);
   };
 
   // Todo 삭제하는 함수
@@ -73,29 +73,11 @@ function App() {
   };
 
   const Clear = async (targetItem) => {
-    // delete todoItems[0];
-    // await axios.delete(`${api_url}/api/todo/${targetItem.id}`);
-    // const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
-    // // console.log(newTodoItem);
-    // setTodoItems(newTodoItem);
-
-    // const deleteItem = async (targetItem) => {
-    // targetItem을 매개변수로 받아오기
-    // targetItem => {title: 'xxx', id: n. done: false}
-    // 1. filter() :targetItem의 id와 todoItems state의 id가 같지 않은 애들을 새로운 배열로 반환
-    // const newTodoItem = todoItems.filter();
-    // const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
-    // // 2. state 변경
-    // setTodoItems(newTodoItem);
-
     await axios.delete(`${api_url}/api/todo/${targetItem.id}`);
     const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
     // 2. state 변경
     setTodoItems(todoItems);
     console.log(todoItems);
-    // };
-    // deleteItem("");
-    // deleteItem();
   };
 
   return (
@@ -122,7 +104,6 @@ function App() {
                 iitem={item}
                 deleteIItem={deleteItem}
                 updateItem={updateItem}
-                Clear={Clear}
               />
             );
           })

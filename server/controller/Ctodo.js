@@ -5,6 +5,12 @@ const { Op } = require("sequelize");
 exports.readTodos = async (_, res) => {
   try {
     let todos = await Todo.findAll();
+
+    // todo리스트 내림차순으로 바꾸기
+    // let todos = await Todo.findAll({
+    //   order: [['id', 'desc']]
+    // });
+
     res.send(todos);
   } catch (err) {
     res.send(err);

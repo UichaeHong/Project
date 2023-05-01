@@ -3,7 +3,7 @@ import "../styles/Todo.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const Todo = ({ iitem, deleteIItem, updateItem, Clear }) => {
+const Todo = ({ iitem, deleteIItem, updateItem }) => {
   // console.log(iitem); // {done: false, id: 1, title: "저녁먹기"}
   const [todoItem, setTodoItem] = useState(iitem);
   const [readOnly, setReadOnly] = useState(true);
@@ -55,30 +55,9 @@ const Todo = ({ iitem, deleteIItem, updateItem, Clear }) => {
     setTodoItem(updatedItem);
     // console.log(setTodoItem);
     updateItem(updatedItem); // 수정 2 checkbox input에서 check 여부 확인
-
-    // 취소선 만들기
-    //   if (checkboxEventHandler.done === "true") {
-    //     todoItem.title = "lineThrough";
-    //   }
   };
-
-  // check 취소선 만들기
-  // itemCheck = (id) => {
-  //   this.toDoList.forEach((toDo) => {
-  //     if (toDo.id === id) {
-  //       toDo.checked = !toDo.checked;
-  //     }
-  //   });
-  //   this.saveToDos();
-  // };
-
-  const Clears = () => {
-    Clear(todoItem);
-    // console(todoItem);
-  };
-
   return (
-    <div className="Todo" onClick={Clears}>
+    <div className="Todo">
       {/* <div className="clear"> */}
       <input
         type="checkbox"
@@ -89,10 +68,6 @@ const Todo = ({ iitem, deleteIItem, updateItem, Clear }) => {
         onChange={checkboxEventHandler}
         // checked={isCheckAll}
         className="check"
-        // className={`item-text ${checked ? "checked" : ""}`}
-
-        // checkbox true 됐을 때 취소선 만들기
-        // style={{ textDecorationLine: todoItem }}
       />
       <input
         className="text"
