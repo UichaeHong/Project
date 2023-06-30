@@ -3,8 +3,9 @@ import Todo from "./components/Todo";
 import AddTodo from "./components/AddTodo";
 import "./styles/App.scss";
 import axios from "axios";
-import { API_BASE_URL } from "./app-config";
+// import { API_BASE_URL } from "./app-config";
 
+// console.log(process.env.REACT_APP_DB_HOST);
 // fontawesome
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCheckSquare, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -22,6 +23,7 @@ function App() {
     const getTodos = async () => {
       // const res = await axios.get("http://localhost:8000/api/todos");
       const res = await axios.get(`${api_url}/api/todos`);
+      // const res = await axios.get(`${process.env.REACT_APP_DB_HOST}/api/todos`);
 
       // console.log(res);
       setTodoItems(res.data.reverse());
@@ -42,6 +44,10 @@ function App() {
     //  axios 요청 날리기 => 백엔드가 받음
     // const res = await axios.post("http://localhost:8000/api/todo", newItem);
     const res = await axios.post(`${api_url}/api/todo`, newItem);
+    // const res = await axios.post(
+    //   `${process.env.REACT_APP_DB_HOST}/api/todo`,
+    //   newItem
+    // );
 
     // console.log(res);
     setTodoItems([res.data, ...todoItems]);
@@ -58,6 +64,9 @@ function App() {
     // setTodoItems(newTodoItem);
 
     await axios.delete(`${api_url}/api/todo/${targetItem.id}`);
+    // await axios.delete(
+    //   `${process.env.REACT_APP_DB_HOST}/api/todo/${targetItem.id}`
+    // );
     const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
     // 2. state 변경
     setTodoItems(newTodoItem);
@@ -70,51 +79,59 @@ function App() {
   const updateItem = async (targetItem) => {
     // console.log(targetItem);
     await axios.patch(`${api_url}/api/todo/${targetItem.id}`, targetItem);
-  };
+    //   await axios.patch(
+    //     `${process.env.REACT_APP_DB_HOST}/api/todo/${targetItem.id}`,
+    //     targetItem
+    //   );
+    // };
 
-  const Clear = async (targetItem) => {
-    await axios.delete(`${api_url}/api/todo/${targetItem.id}`);
-    const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
-    // 2. state 변경
-    setTodoItems(todoItems);
-    console.log(todoItems);
-  };
+    const Clear = async (targetItem) => {
+      await axios.delete(`${api_url}/api/todo/${targetItem.id}`);
+      // await axios.delete(
+      //   `${process.env.REACT_APP_DB_HOST}/api/todo/${targetItem.id}`
+      // );
+      const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
+      // 2. state 변경
+      setTodoItems(todoItems);
+      console.log(todoItems);
+    };
 
-  return (
-    <div className="body">
-      <div className="App">
-        <h1>TodoList</h1>
-        {/* todo 추가 input*/}
-        <AddTodo addIItem={addItem} />
-        {/* todo 목록 개수 보이기 */}
-        <div className="left-todos">{todoItems.length} todos</div>
-        {/* todo 전체 삭제 */}
-        {/* onClick={Clear} */}
+    return (
+      <div className="body">
+        <div className="App">
+          <h1>TodoList</h1>
+          {/* todo 추가 input*/}
+          <AddTodo addIItem={addItem} />
+          {/* todo 목록 개수 보이기 */}
+          <div className="left-todos">{todoItems.length} todos</div>
+          {/* todo 전체 삭제 */}
+          {/* onClick={Clear} */}
 
-        {todoItems.length > 0 ? <div onClick={Clear}>reset</div> : ""}
-        {/* <div onClick={Clear}>reset</div> */}
+          {todoItems.length > 0 ? <div onClick={Clear}>reset</div> : ""}
+          {/* <div onClick={Clear}>reset</div> */}
 
-        {/* todo 보이는 목록 */}
+          {/* todo 보이는 목록 */}
 
-        {todoItems.length > 0 ? (
-          todoItems.map((item) => {
-            return (
-              <Todo
-                key={item.id}
-                iitem={item}
-                deleteIItem={deleteItem}
-                updateItem={updateItem}
-              />
-            );
-          })
-        ) : (
-          <p className="empty-todos" style={{ backgroundColor: "aliceblue" }}>
-            Todo를 추가해주세요 🐱‍🏍
-          </p>
-        )}
+          {todoItems.length > 0 ? (
+            todoItems.map((item) => {
+              return (
+                <Todo
+                  key={item.id}
+                  iitem={item}
+                  deleteIItem={deleteItem}
+                  updateItem={updateItem}
+                />
+              );
+            })
+          ) : (
+            <p className="empty-todos" style={{ backgroundColor: "aliceblue" }}>
+              Todo를 추가해주세요 🐱‍🏍
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 }
 
 export default App;
